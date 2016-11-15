@@ -56,3 +56,34 @@
     </div>
   </div>
 </div>
+
+<!-- A Route pooling has many confirmed_passengers -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Confirmed_passengers
+      </li>
+
+      <% @route_pooling.confirmed_passengers.each do |confirmed_passenger| %>
+        <li class="list-group-item">
+          <a href="/confirmed_passengers/<%= confirmed_passenger.id %>">
+            <%= confirmed_passenger.created_at %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/confirmed_passengers/<%= confirmed_passenger.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/confirmed_passengers/<%= confirmed_passenger.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_confirmed_passenger/<%= confirmed_passenger.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
