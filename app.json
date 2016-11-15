@@ -1,0 +1,1 @@
+{"name":"YaVan Google Places","repository":"https://github.com/santiagolv/yavan_google_places","env":{"CLOUDINARY_CLOUD_NAME":{"required":true},"CLOUDINARY_API_KEY":{"required":true},"CLOUDINARY_API_SECRET":{"required":true},"ROLLBAR_ACCESS_TOKEN":{"required":true}}}
