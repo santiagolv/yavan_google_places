@@ -24,7 +24,7 @@
           Route pool
         </label>
 
-        <input type="text" id="route_pool_id" name="route_pool_id" placeholder="Route pool" class="form-control" value="<%= @confirmed_passenger.route_pool_id %>">
+        <%= select_tag(:route_pool_id, options_from_collection_for_select(RoutePooling.all, :id, :arrival_date_time, @confirmed_passenger.route_pool_id), :class => "form-control") %>
       </div>
 
       <!-- Label and input for user_id -->
