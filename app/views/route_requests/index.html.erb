@@ -40,8 +40,11 @@
         <td><%= route_request.origin_google_suggested_departure_time %></td>
         <td>
           <a href="/route_requests/<%= route_request.id %>" class="btn btn-primary">Show</a>
-          <a href="/route_requests/<%= route_request.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_route_request/<%= route_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == route_request.user %>
+            <a href="/route_requests/<%= route_request.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_route_request/<%= route_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>
