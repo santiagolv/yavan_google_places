@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root :to => "route_requests#index"
   # Routes for the Confirmed_passenger resource:
   # CREATE
