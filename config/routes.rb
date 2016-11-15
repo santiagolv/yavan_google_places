@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  # Routes for the Confirmed_passenger resource:
+  # CREATE
+  get "/confirmed_passengers/new", :controller => "confirmed_passengers", :action => "new"
+  post "/create_confirmed_passenger", :controller => "confirmed_passengers", :action => "create"
+
+  # READ
+  get "/confirmed_passengers", :controller => "confirmed_passengers", :action => "index"
+  get "/confirmed_passengers/:id", :controller => "confirmed_passengers", :action => "show"
+
+  # UPDATE
+  get "/confirmed_passengers/:id/edit", :controller => "confirmed_passengers", :action => "edit"
+  post "/update_confirmed_passenger/:id", :controller => "confirmed_passengers", :action => "update"
+
+  # DELETE
+  get "/delete_confirmed_passenger/:id", :controller => "confirmed_passengers", :action => "destroy"
+  #------------------------------
+
   # Routes for the Route_pooling resource:
   # CREATE
   get "/route_poolings/new", :controller => "route_poolings", :action => "new"

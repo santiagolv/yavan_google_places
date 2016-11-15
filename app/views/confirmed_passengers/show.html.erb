@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h3>Confirmed Passenger #<%= @confirmed_passenger.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Route pool</dt>
+      <dd><%= @confirmed_passenger.route_pool_id %></dd>
+
+      <dt>User</dt>
+      <dd><%= @confirmed_passenger.user_id %></dd>
+
+      <dt>Passenger name</dt>
+      <dd><%= @confirmed_passenger.passenger_name %></dd>
+
+      <dt>Passenger last name</dt>
+      <dd><%= @confirmed_passenger.passenger_last_name %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/confirmed_passengers" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/confirmed_passengers/<%= @confirmed_passenger.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_confirmed_passenger/<%= @confirmed_passenger.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

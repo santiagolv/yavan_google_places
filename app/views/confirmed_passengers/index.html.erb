@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>
+    Confirmed passengers
+    <a href="/confirmed_passengers/new" class="btn btn-lg btn-success">New Confirmed passenger</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Route pool</th>
+        <th>User</th>
+        <th>Passenger name</th>
+        <th>Passenger last name</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @confirmed_passengers.each do |confirmed_passenger| %>
+      <tr>
+        <td><%= confirmed_passenger.route_pool_id %></td>
+        <td><%= confirmed_passenger.user_id %></td>
+        <td><%= confirmed_passenger.passenger_name %></td>
+        <td><%= confirmed_passenger.passenger_last_name %></td>
+        <td>
+          <a href="/confirmed_passengers/<%= confirmed_passenger.id %>" class="btn btn-primary">Show</a>
+          <a href="/confirmed_passengers/<%= confirmed_passenger.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_confirmed_passenger/<%= confirmed_passenger.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<!-- Validation failure messages -->
+<% if @confirmed_passenger.errors.any? %>
+  <% @confirmed_passenger.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Confirmed Passenger #<%= @confirmed_passenger.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_confirmed_passenger/<%= @confirmed_passenger.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for route_pool_id -->
+      <div class="form-group">
+        <label for="route_pool_id" class="control-label">
+          Route pool
+        </label>
+
+        <input type="text" id="route_pool_id" name="route_pool_id" placeholder="Route pool" class="form-control" value="<%= @confirmed_passenger.route_pool_id %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @confirmed_passenger.user_id %>">
+      </div>
+
+      <!-- Label and input for passenger_name -->
+      <div class="form-group">
+        <label for="passenger_name" class="control-label">
+          Passenger name
+        </label>
+
+        <input type="text" id="passenger_name" name="passenger_name" placeholder="Passenger name" class="form-control" value="<%= @confirmed_passenger.passenger_name %>">
+      </div>
+
+      <!-- Label and input for passenger_last_name -->
+      <div class="form-group">
+        <label for="passenger_last_name" class="control-label">
+          Passenger last name
+        </label>
+
+        <input type="text" id="passenger_last_name" name="passenger_last_name" placeholder="Passenger last name" class="form-control" value="<%= @confirmed_passenger.passenger_last_name %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Confirmed Passenger
+      </button>
+      or
+      <a href="/confirmed_passengers/<%= @confirmed_passenger.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
