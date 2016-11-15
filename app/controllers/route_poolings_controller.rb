@@ -1,6 +1,7 @@
 class RoutePoolingsController < ApplicationController
   def index
-    @route_poolings = RoutePooling.page(params[:page]).per(10)
+    @q = RoutePooling.ransack(params[:q])
+    @route_poolings = @q.result(:distinct => true).includes(:route_request, :confirmed_passengers).page(params[:page]).per(10)
 
     render("route_poolings/index.html.erb")
   end

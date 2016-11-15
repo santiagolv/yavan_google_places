@@ -1,6 +1,7 @@
 class ConfirmedPassengersController < ApplicationController
   def index
-    @confirmed_passengers = ConfirmedPassenger.page(params[:page]).per(10)
+    @q = ConfirmedPassenger.ransack(params[:q])
+    @confirmed_passengers = @q.result(:distinct => true).includes(:user, :route_pool).page(params[:page]).per(10)
 
     render("confirmed_passengers/index.html.erb")
   end
