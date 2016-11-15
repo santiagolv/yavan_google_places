@@ -108,14 +108,8 @@
         <input type="text" id="max_time_in_advance" name="max_time_in_advance" placeholder="Max time in advance" class="form-control" value="<%= @route_request.max_time_in_advance %>">
       </div>
 
-      <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email, @route_request.user_id), :class => "form-control") %>
-      </div>
+      
+      
 
       <!-- Label and input for origin_google_suggested_departure_time -->
       <div class="form-group">
