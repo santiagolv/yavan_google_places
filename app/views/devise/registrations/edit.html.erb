@@ -55,6 +55,48 @@
           </div>
 
           <div class="form-group">
+            <%= f.label :name, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.text_field :name, :class => "form-control", :placeholder => "Enter name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :father_last_name, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.text_field :father_last_name, :class => "form-control", :placeholder => "Enter father last name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :mother_last_name, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.text_field :mother_last_name, :class => "form-control", :placeholder => "Enter mother last name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :middle_name, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.text_field :middle_name, :class => "form-control", :placeholder => "Enter middle name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone_number, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.number_field :phone_number, :class => "form-control", :placeholder => "Enter phone number" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :mobile_number, class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.number_field :mobile_number, :class => "form-control", :placeholder => "Enter mobile number" %>
+            </div>
+          </div>
+
+          <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
               <%= f.submit "Update", class: "btn btn-success btn-block" %>
             </div>
