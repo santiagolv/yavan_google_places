@@ -33,7 +33,13 @@
         <td><%= route_pooling.destination_place %></td>
         <td><%= route_pooling.destination_city %></td>
         <td><%= route_pooling.user_id %></td>
-        <td><%= route_pooling.route_request.origin_query %></td>
+        <td>
+          <% if route_pooling.route_request.present? %>
+            <a href="/route_requests/<%= route_pooling.route_request.id %>">
+              <%= route_pooling.route_request.origin_query %>
+            </a>
+          <% end %>
+        </td>
         <td><%= route_pooling.passengers_pooled %></td>
         <td><%= route_pooling.average_buffer_time %></td>
         <td><%= route_pooling.google_suggested_departure_time %></td>

@@ -18,8 +18,20 @@
 
       <% @confirmed_passengers.each do |confirmed_passenger| %>
       <tr>
-        <td><%= confirmed_passenger.route_pool.arrival_date_time %></td>
-        <td><%= confirmed_passenger.user.email %></td>
+        <td>
+          <% if confirmed_passenger.route_pool.present? %>
+            <a href="/route_poolings/<%= confirmed_passenger.route_pool.id %>">
+              <%= confirmed_passenger.route_pool.arrival_date_time %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if confirmed_passenger.user.present? %>
+            <a href="/users/<%= confirmed_passenger.user.id %>">
+              <%= confirmed_passenger.user.email %>
+            </a>
+          <% end %>
+        </td>
         <td><%= confirmed_passenger.passenger_name %></td>
         <td><%= confirmed_passenger.passenger_last_name %></td>
         <td>

@@ -36,7 +36,13 @@
       <dd><%= @route_request.max_time_in_advance %></dd>
 
       <dt>User</dt>
-      <dd><%= @route_request.user_id %></dd>
+      <dd>
+        <% if @route_request.user.present? %>
+          <a href="/users/<%= @route_request.user_id %>">
+            <%= @route_request.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Origin google suggested departure time</dt>
       <dd><%= @route_request.origin_google_suggested_departure_time %></dd>

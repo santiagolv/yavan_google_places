@@ -6,10 +6,22 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
       <dt>Route pool</dt>
-      <dd><%= @confirmed_passenger.route_pool_id %></dd>
+      <dd>
+        <% if @confirmed_passenger.route_pool.present? %>
+          <a href="/route_poolings/<%= @confirmed_passenger.route_pool_id %>">
+            <%= @confirmed_passenger.route_pool.arrival_date_time %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>User</dt>
-      <dd><%= @confirmed_passenger.user_id %></dd>
+      <dd>
+        <% if @confirmed_passenger.user.present? %>
+          <a href="/users/<%= @confirmed_passenger.user_id %>">
+            <%= @confirmed_passenger.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Passenger name</dt>
       <dd><%= @confirmed_passenger.passenger_name %></dd>

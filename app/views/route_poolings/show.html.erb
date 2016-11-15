@@ -27,7 +27,13 @@
       <dd><%= @route_pooling.user_id %></dd>
 
       <dt>Route request</dt>
-      <dd><%= @route_pooling.route_request_id %></dd>
+      <dd>
+        <% if @route_pooling.route_request.present? %>
+          <a href="/route_requests/<%= @route_pooling.route_request_id %>">
+            <%= @route_pooling.route_request.origin_query %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Passengers pooled</dt>
       <dd><%= @route_pooling.passengers_pooled %></dd>

@@ -36,7 +36,13 @@
         <td><%= route_request.destination_google_id %></td>
         <td><%= route_request.destination_arrival_date_time %></td>
         <td><%= route_request.max_time_in_advance %></td>
-        <td><%= route_request.user.email %></td>
+        <td>
+          <% if route_request.user.present? %>
+            <a href="/users/<%= route_request.user.id %>">
+              <%= route_request.user.email %>
+            </a>
+          <% end %>
+        </td>
         <td><%= route_request.origin_google_suggested_departure_time %></td>
         <td>
           <a href="/route_requests/<%= route_request.id %>" class="btn btn-primary">Show</a>
