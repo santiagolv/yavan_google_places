@@ -10,7 +10,7 @@ class RouteRequestsController < ApplicationController
   end
 
   def index
-    @route_requests = RouteRequest.all
+    @route_requests = RouteRequest.page(params[:page]).per(10)
 
     render("route_requests/index.html.erb")
   end

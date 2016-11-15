@@ -1,6 +1,6 @@
 class ConfirmedPassengersController < ApplicationController
   def index
-    @confirmed_passengers = ConfirmedPassenger.all
+    @confirmed_passengers = ConfirmedPassenger.page(params[:page]).per(10)
 
     render("confirmed_passengers/index.html.erb")
   end

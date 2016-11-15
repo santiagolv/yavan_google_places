@@ -1,6 +1,6 @@
 class RoutePoolingsController < ApplicationController
   def index
-    @route_poolings = RoutePooling.all
+    @route_poolings = RoutePooling.page(params[:page]).per(10)
 
     render("route_poolings/index.html.erb")
   end
