@@ -18,7 +18,7 @@
 
       <% @confirmed_passengers.each do |confirmed_passenger| %>
       <tr>
-        <td><%= confirmed_passenger.route_pool_id %></td>
+        <td><%= confirmed_passenger.route_pool.arrival_date_time %></td>
         <td><%= confirmed_passenger.user_id %></td>
         <td><%= confirmed_passenger.passenger_name %></td>
         <td><%= confirmed_passenger.passenger_last_name %></td>
