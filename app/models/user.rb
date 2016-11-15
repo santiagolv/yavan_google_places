@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   # Direct associations
 
+  has_many   :confirmed_passengers,
+             :dependent => :destroy
+
   has_many   :route_requests,
              :dependent => :destroy
 
