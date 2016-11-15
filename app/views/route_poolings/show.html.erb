@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h3>Route Pooling #<%= @route_pooling.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Arrival date time</dt>
+      <dd><%= @route_pooling.arrival_date_time %></dd>
+
+      <dt>Origin place</dt>
+      <dd><%= @route_pooling.origin_place %></dd>
+
+      <dt>Origin city</dt>
+      <dd><%= @route_pooling.origin_city %></dd>
+
+      <dt>Origin google</dt>
+      <dd><%= @route_pooling.origin_google_id %></dd>
+
+      <dt>Destination place</dt>
+      <dd><%= @route_pooling.destination_place %></dd>
+
+      <dt>Destination city</dt>
+      <dd><%= @route_pooling.destination_city %></dd>
+
+      <dt>User</dt>
+      <dd><%= @route_pooling.user_id %></dd>
+
+      <dt>Route request</dt>
+      <dd><%= @route_pooling.route_request_id %></dd>
+
+      <dt>Passengers pooled</dt>
+      <dd><%= @route_pooling.passengers_pooled %></dd>
+
+      <dt>Average buffer time</dt>
+      <dd><%= @route_pooling.average_buffer_time %></dd>
+
+      <dt>Google suggested departure time</dt>
+      <dd><%= @route_pooling.google_suggested_departure_time %></dd>
+
+      <dt>Confirmed route</dt>
+      <dd><%= @route_pooling.confirmed_route %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/route_poolings" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/route_poolings/<%= @route_pooling.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_route_pooling/<%= @route_pooling.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

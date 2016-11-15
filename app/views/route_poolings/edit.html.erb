@@ -1,0 +1,135 @@
+<!-- Validation failure messages -->
+<% if @route_pooling.errors.any? %>
+  <% @route_pooling.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Route Pooling #<%= @route_pooling.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_route_pooling/<%= @route_pooling.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for arrival_date_time -->
+      <div class="form-group">
+        <label for="arrival_date_time" class="control-label">
+          Arrival date time
+        </label>
+
+        <input type="text" id="arrival_date_time" name="arrival_date_time" placeholder="Arrival date time" class="form-control" value="<%= @route_pooling.arrival_date_time %>">
+      </div>
+
+      <!-- Label and input for origin_place -->
+      <div class="form-group">
+        <label for="origin_place" class="control-label">
+          Origin place
+        </label>
+
+        <input type="text" id="origin_place" name="origin_place" placeholder="Origin place" class="form-control" value="<%= @route_pooling.origin_place %>">
+      </div>
+
+      <!-- Label and input for origin_city -->
+      <div class="form-group">
+        <label for="origin_city" class="control-label">
+          Origin city
+        </label>
+
+        <input type="text" id="origin_city" name="origin_city" placeholder="Origin city" class="form-control" value="<%= @route_pooling.origin_city %>">
+      </div>
+
+      <!-- Label and input for origin_google_id -->
+      <div class="form-group">
+        <label for="origin_google_id" class="control-label">
+          Origin google
+        </label>
+
+        <input type="text" id="origin_google_id" name="origin_google_id" placeholder="Origin google" class="form-control" value="<%= @route_pooling.origin_google_id %>">
+      </div>
+
+      <!-- Label and input for destination_place -->
+      <div class="form-group">
+        <label for="destination_place" class="control-label">
+          Destination place
+        </label>
+
+        <input type="text" id="destination_place" name="destination_place" placeholder="Destination place" class="form-control" value="<%= @route_pooling.destination_place %>">
+      </div>
+
+      <!-- Label and input for destination_city -->
+      <div class="form-group">
+        <label for="destination_city" class="control-label">
+          Destination city
+        </label>
+
+        <input type="text" id="destination_city" name="destination_city" placeholder="Destination city" class="form-control" value="<%= @route_pooling.destination_city %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @route_pooling.user_id %>">
+      </div>
+
+      <!-- Label and input for route_request_id -->
+      <div class="form-group">
+        <label for="route_request_id" class="control-label">
+          Route request
+        </label>
+
+        <input type="text" id="route_request_id" name="route_request_id" placeholder="Route request" class="form-control" value="<%= @route_pooling.route_request_id %>">
+      </div>
+
+      <!-- Label and input for passengers_pooled -->
+      <div class="form-group">
+        <label for="passengers_pooled" class="control-label">
+          Passengers pooled
+        </label>
+
+        <input type="text" id="passengers_pooled" name="passengers_pooled" placeholder="Passengers pooled" class="form-control" value="<%= @route_pooling.passengers_pooled %>">
+      </div>
+
+      <!-- Label and input for average_buffer_time -->
+      <div class="form-group">
+        <label for="average_buffer_time" class="control-label">
+          Average buffer time
+        </label>
+
+        <input type="text" id="average_buffer_time" name="average_buffer_time" placeholder="Average buffer time" class="form-control" value="<%= @route_pooling.average_buffer_time %>">
+      </div>
+
+      <!-- Label and input for google_suggested_departure_time -->
+      <div class="form-group">
+        <label for="google_suggested_departure_time" class="control-label">
+          Google suggested departure time
+        </label>
+
+        <input type="text" id="google_suggested_departure_time" name="google_suggested_departure_time" placeholder="Google suggested departure time" class="form-control" value="<%= @route_pooling.google_suggested_departure_time %>">
+      </div>
+
+      <!-- Label and input for confirmed_route -->
+      <div class="checkbox">
+        <label for="confirmed_route">
+          <input type="checkbox" id="confirmed_route" name="confirmed_route" value="1" <%= "checked" if @route_pooling.confirmed_route %>>
+          Confirmed route
+        </label>
+      </div>
+
+      <button class="btn btn-warning">
+        Update Route Pooling
+      </button>
+      or
+      <a href="/route_poolings/<%= @route_pooling.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
