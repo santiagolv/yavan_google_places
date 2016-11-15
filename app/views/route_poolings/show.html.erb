@@ -84,6 +84,53 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_confirmed_passenger" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for route_pool_id -->
+      <div class="form-group">
+        <label for="route_pool_id" class="control-label">
+          Route pool
+        </label>
+
+        <%= select_tag(:route_pool_id, options_from_collection_for_select(RoutePooling.all, :id, :arrival_date_time), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for passenger_name -->
+      <div class="form-group">
+        <label for="passenger_name" class="control-label">
+          Passenger name
+        </label>
+
+        <input type="text" id="passenger_name" name="passenger_name" placeholder="Passenger name" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for passenger_last_name -->
+      <div class="form-group">
+        <label for="passenger_last_name" class="control-label">
+          Passenger last name
+        </label>
+
+        <input type="text" id="passenger_last_name" name="passenger_last_name" placeholder="Passenger last name" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Confirmed Passenger
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>

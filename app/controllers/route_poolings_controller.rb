@@ -6,6 +6,7 @@ class RoutePoolingsController < ApplicationController
   end
 
   def show
+    @confirmed_passenger = ConfirmedPassenger.new
     @route_pooling = RoutePooling.find(params[:id])
 
     render("route_poolings/show.html.erb")
