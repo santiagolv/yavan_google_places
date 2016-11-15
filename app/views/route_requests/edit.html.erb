@@ -1,0 +1,136 @@
+<!-- Validation failure messages -->
+<% if @route_request.errors.any? %>
+  <% @route_request.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Route Request #<%= @route_request.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_route_request/<%= @route_request.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for origin_query -->
+      <div class="form-group">
+        <label for="origin_query" class="control-label">
+          Origin query
+        </label>
+
+        <textarea id="origin_query" name="origin_query" placeholder="Origin query" class="form-control" rows="3"><%= @route_request.origin_query %></textarea>
+      </div>
+
+      <!-- Label and input for origin_city -->
+      <div class="form-group">
+        <label for="origin_city" class="control-label">
+          Origin city
+        </label>
+
+        <input type="text" id="origin_city" name="origin_city" placeholder="Origin city" class="form-control" value="<%= @route_request.origin_city %>">
+      </div>
+
+      <!-- Label and input for origin_place -->
+      <div class="form-group">
+        <label for="origin_place" class="control-label">
+          Origin place
+        </label>
+
+        <input type="text" id="origin_place" name="origin_place" placeholder="Origin place" class="form-control" value="<%= @route_request.origin_place %>">
+      </div>
+
+      <!-- Label and input for origin_google_id -->
+      <div class="form-group">
+        <label for="origin_google_id" class="control-label">
+          Origin google
+        </label>
+
+        <input type="text" id="origin_google_id" name="origin_google_id" placeholder="Origin google" class="form-control" value="<%= @route_request.origin_google_id %>">
+      </div>
+
+      <!-- Label and input for destination_query -->
+      <div class="form-group">
+        <label for="destination_query" class="control-label">
+          Destination query
+        </label>
+
+        <textarea id="destination_query" name="destination_query" placeholder="Destination query" class="form-control" rows="3"><%= @route_request.destination_query %></textarea>
+      </div>
+
+      <!-- Label and input for destination_city -->
+      <div class="form-group">
+        <label for="destination_city" class="control-label">
+          Destination city
+        </label>
+
+        <input type="text" id="destination_city" name="destination_city" placeholder="Destination city" class="form-control" value="<%= @route_request.destination_city %>">
+      </div>
+
+      <!-- Label and input for destination_place -->
+      <div class="form-group">
+        <label for="destination_place" class="control-label">
+          Destination place
+        </label>
+
+        <input type="text" id="destination_place" name="destination_place" placeholder="Destination place" class="form-control" value="<%= @route_request.destination_place %>">
+      </div>
+
+      <!-- Label and input for destination_google_id -->
+      <div class="form-group">
+        <label for="destination_google_id" class="control-label">
+          Destination google
+        </label>
+
+        <input type="text" id="destination_google_id" name="destination_google_id" placeholder="Destination google" class="form-control" value="<%= @route_request.destination_google_id %>">
+      </div>
+
+      <!-- Label and input for destination_arrival_date_time -->
+      <div class="form-group">
+        <label for="destination_arrival_date_time" class="control-label">
+          Destination arrival date time
+        </label>
+
+        <input type="text" id="destination_arrival_date_time" name="destination_arrival_date_time" placeholder="Destination arrival date time" class="form-control" value="<%= @route_request.destination_arrival_date_time %>">
+      </div>
+
+      <!-- Label and input for max_time_in_advance -->
+      <div class="form-group">
+        <label for="max_time_in_advance" class="control-label">
+          Max time in advance
+        </label>
+
+        <input type="text" id="max_time_in_advance" name="max_time_in_advance" placeholder="Max time in advance" class="form-control" value="<%= @route_request.max_time_in_advance %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @route_request.user_id %>">
+      </div>
+
+      <!-- Label and input for origin_google_suggested_departure_time -->
+      <div class="form-group">
+        <label for="origin_google_suggested_departure_time" class="control-label">
+          Origin google suggested departure time
+        </label>
+
+        <input type="text" id="origin_google_suggested_departure_time" name="origin_google_suggested_departure_time" placeholder="Origin google suggested departure time" class="form-control" value="<%= @route_request.origin_google_suggested_departure_time %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Route Request
+      </button>
+      or
+      <a href="/route_requests/<%= @route_request.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

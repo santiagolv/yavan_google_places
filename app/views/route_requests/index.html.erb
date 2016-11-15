@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1>
+    Route requests
+    <a href="/route_requests/new" class="btn btn-lg btn-success">New Route request</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Origin query</th>
+        <th>Origin city</th>
+        <th>Origin place</th>
+        <th>Origin google</th>
+        <th>Destination query</th>
+        <th>Destination city</th>
+        <th>Destination place</th>
+        <th>Destination google</th>
+        <th>Destination arrival date time</th>
+        <th>Max time in advance</th>
+        <th>User</th>
+        <th>Origin google suggested departure time</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @route_requests.each do |route_request| %>
+      <tr>
+        <td><%= route_request.origin_query %></td>
+        <td><%= route_request.origin_city %></td>
+        <td><%= route_request.origin_place %></td>
+        <td><%= route_request.origin_google_id %></td>
+        <td><%= route_request.destination_query %></td>
+        <td><%= route_request.destination_city %></td>
+        <td><%= route_request.destination_place %></td>
+        <td><%= route_request.destination_google_id %></td>
+        <td><%= route_request.destination_arrival_date_time %></td>
+        <td><%= route_request.max_time_in_advance %></td>
+        <td><%= route_request.user_id %></td>
+        <td><%= route_request.origin_google_suggested_departure_time %></td>
+        <td>
+          <a href="/route_requests/<%= route_request.id %>" class="btn btn-primary">Show</a>
+          <a href="/route_requests/<%= route_request.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_route_request/<%= route_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

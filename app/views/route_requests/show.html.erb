@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h3>Route Request #<%= @route_request.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Origin query</dt>
+      <dd><%= @route_request.origin_query %></dd>
+
+      <dt>Origin city</dt>
+      <dd><%= @route_request.origin_city %></dd>
+
+      <dt>Origin place</dt>
+      <dd><%= @route_request.origin_place %></dd>
+
+      <dt>Origin google</dt>
+      <dd><%= @route_request.origin_google_id %></dd>
+
+      <dt>Destination query</dt>
+      <dd><%= @route_request.destination_query %></dd>
+
+      <dt>Destination city</dt>
+      <dd><%= @route_request.destination_city %></dd>
+
+      <dt>Destination place</dt>
+      <dd><%= @route_request.destination_place %></dd>
+
+      <dt>Destination google</dt>
+      <dd><%= @route_request.destination_google_id %></dd>
+
+      <dt>Destination arrival date time</dt>
+      <dd><%= @route_request.destination_arrival_date_time %></dd>
+
+      <dt>Max time in advance</dt>
+      <dd><%= @route_request.max_time_in_advance %></dd>
+
+      <dt>User</dt>
+      <dd><%= @route_request.user_id %></dd>
+
+      <dt>Origin google suggested departure time</dt>
+      <dd><%= @route_request.origin_google_suggested_departure_time %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/route_requests" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/route_requests/<%= @route_request.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_route_request/<%= @route_request.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
