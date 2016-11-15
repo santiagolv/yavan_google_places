@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root :to => "route_requests#index"
   # Routes for the Confirmed_passenger resource:
   # CREATE
   get "/confirmed_passengers/new", :controller => "confirmed_passengers", :action => "new"
