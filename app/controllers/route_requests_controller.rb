@@ -55,7 +55,9 @@ class RouteRequestsController < ApplicationController
     else
       @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
       @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
-      render("route_requests/route_validation" )
+      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time=1481547600"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      @parsed_data_directions = JSON.parse(open(@url_directions).read)
+      render("route_requests/route_validation")
     end
   end
 
