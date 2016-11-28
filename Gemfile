@@ -12,6 +12,12 @@ group :production do
   gem "rails_12factor"
 end
 # Use Puma as the app server
+
+gem 'momentjs-rails', '>= 2.9.0'
+
+#gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+
+
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

@@ -9,14 +9,33 @@
       <form class="form-group" action="/create_origin_request/" method="post">
         <!-- Hidden input for authenticity token to protect from forgery -->
         <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+        <!--Origin Request Fields -->
         <div class="form-group">
           <label for="origin_request">Origin Neighborhood and City</label>
           <input class="form-control" type="text" name="user_origin_request"  placeholder="Type Origin Neighborhood and City" id="origin_request">
         </div>
+
+            <!--Destination Request Fields -->
         <div class="form-group" align="align-right">
           <label for="destination_request">Destination Neighborhood and City</label>
           <input class="form-control" type="text" name="user_destination_request"  placeholder="Type Destination Neighborhood and City" id="destination_request">
         </div>
+
+        <!--Destination Arrival Date and Time Fields -->
+        <div class='input-group date' id='datetimepicker1'>
+          <input type='text' class="form-control" name="held_on" id="held_on">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+        <script type="text/javascript">
+          $(function () {
+            $('#datetimepicker1').datetimepicker();
+          });
+        </script>
+
+
         <button type="submit" class="btn btn-primary btn-lg btn-block">Search Route</button>
       </form>
     </div>

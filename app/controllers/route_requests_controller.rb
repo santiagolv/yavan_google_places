@@ -39,10 +39,11 @@ class RouteRequestsController < ApplicationController
   def origin_validation
     @origin_request = params[:user_origin_request]
     @destination_request = params[:user_destination_request]
+
     @origin_request_no_space = URI.encode(@origin_request)
     @destination_request_no_space = URI.encode(@destination_request)
-    @url_origin = "https://maps.googleapis.com/maps/api/geocode/json?address="+@origin_request_no_space+"&key=AIzaSyD-Gv0Y7S7Ms8nPZNbuPI1OcQzjzK7ehg4"
-    @url_destination = "https://maps.googleapis.com/maps/api/geocode/json?address="+@destination_request_no_space+"&key=AIzaSyD-Gv0Y7S7Ms8nPZNbuPI1OcQzjzK7ehg4"
+    @url_origin = "https://maps.googleapis.com/maps/api/geocode/json?address="+@origin_request_no_space+"&key=AIzaSyBXz-26sirAvveXXvj354ayAJY6lpq_JAw"
+    @url_destination = "https://maps.googleapis.com/maps/api/geocode/json?address="+@destination_request_no_space+"&key=AIzaSyBXz-26sirAvveXXvj354ayAJY6lpq_JAw"
     @parsed_data_origin = JSON.parse(open(@url_origin).read)
     @parsed_data_destination = JSON.parse(open(@url_destination).read)
     @status_origin = @parsed_data_origin["status"]
