@@ -1,0 +1,28 @@
+<!-- Validation failure messages -->
+
+
+<div class="page-header">
+  <h3>Add New Route Request</h3>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-5">
+      <form action="/create_origin_request/" method="post">
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+        <div>
+          <label for="origin_request">Origin Neighborhood and City</label>
+          <input type="text" name="user_origin_request"  id="origin_request">
+          <label for="destination_request">Destination Neighborhood and City</label>
+          <input type="text" name="user_destination_request"  id="destination_request">
+          <button>Lookup Neighborhood</button>
+        </div>
+
+
+
+        <!-- Label and input for origin_query -->
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -38,8 +38,11 @@ Rails.application.routes.draw do
 
   # Routes for the Route_request resource:
   # CREATE
+  get "/route_requests/new_origin", :controller => "route_requests", :action => "new_origin"
   get "/route_requests/new", :controller => "route_requests", :action => "new"
   post "/create_route_request", :controller => "route_requests", :action => "create"
+  post "/create_origin_request/", :controller => "route_requests", :action => "origin_validation"
+
 
   # READ
   get "/route_requests", :controller => "route_requests", :action => "index"

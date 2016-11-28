@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'json'
+
 class RouteRequestsController < ApplicationController
   before_action :current_user_must_be_route_request_user, :only => [:edit, :update, :destroy]
 
@@ -26,6 +29,33 @@ class RouteRequestsController < ApplicationController
     @route_request = RouteRequest.new
 
     render("route_requests/new.html.erb")
+  end
+
+  def new_origin
+    @origin_request = String.new
+    render("route_requests/new_origin" )
+  end
+
+  def origin_validation
+    @origin_request = params[:user_origin_request]
+    @destination_request = params[:user_destination_request]
+    @origin_request_no_space = URI.encode(@origin_request)
+    @destination_request_no_space = URI.encode(@destination_request)
+    @url_origin = "https://maps.googleapis.com/maps/api/geocode/json?address="+@origin_request_no_space+"&key=AIzaSyD-Gv0Y7S7Ms8nPZNbuPI1OcQzjzK7ehg4"
+    @url_destination = "https://maps.googleapis.com/maps/api/geocode/json?address="+@destination_request_no_space+"&key=AIzaSyD-Gv0Y7S7Ms8nPZNbuPI1OcQzjzK7ehg4"
+    @parsed_data_origin = JSON.parse(open(@url_origin).read)
+    @parsed_data_destination = JSON.parse(open(@url_destination).read)
+    @status_origin = @parsed_data_origin["status"]
+    @status_destination = @parsed_data_destination["status"]
+    if @status_origin!="OK"
+      redirect_to(:back, :notice=>"Origin Not Found, Please Try Again." )
+    elsif @status_destination!="OK"
+      redirect_to(:back, :notice=>"Destination Not Found, Please Try Again." )
+    else
+      @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
+      @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
+      render("route_requests/route_validation" )
+    end
   end
 
   def create
