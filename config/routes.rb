@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root :to => "route_requests#index"
+  root :to => "route_requests#new_origin"
   # Routes for the Confirmed_passenger resource:
   # CREATE
   get "/confirmed_passengers/new", :controller => "confirmed_passengers", :action => "new"
@@ -43,7 +44,6 @@ Rails.application.routes.draw do
   post "/create_route_request", :controller => "route_requests", :action => "create"
   post "/create_origin_request/", :controller => "route_requests", :action => "origin_validation"
 
-
   # READ
   get "/route_requests", :controller => "route_requests", :action => "index"
   get "/route_requests/:id", :controller => "route_requests", :action => "show"
@@ -56,12 +56,11 @@ Rails.application.routes.draw do
   get "/delete_route_request/:id", :controller => "route_requests", :action => "destroy"
   #------------------------------
 
-  devise_for :users
+
   # Routes for the User resource:
   # READ
   get "/users", :controller => "users", :action => "index"
   get "/users/:id", :controller => "users", :action => "show"
-  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
