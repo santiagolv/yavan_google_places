@@ -1,6 +1,8 @@
 require 'open-uri'
 require 'json'
 require 'openssl'
+require 'time'
+require 'date'
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 
@@ -43,6 +45,11 @@ class RouteRequestsController < ApplicationController
   def origin_validation
     @origin_request = params[:user_origin_request]
     @destination_request = params[:user_destination_request]
+    @date_time_departure = params[:date_time_departure]
+    @epoch = Date.new(1970,1,1)
+    @date_time = DateTime.parse(@date_time_departure.to_s)
+    @date_time_google = @date_time.to_i
+
 
     @origin_request_no_space = URI.encode(@origin_request)
     @destination_request_no_space = URI.encode(@destination_request)
@@ -60,7 +67,7 @@ class RouteRequestsController < ApplicationController
       @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
       @google_id_city = @parsed_data_origin["results"][0]["place_id"]
       @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
-      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time=1481547600"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time=1483290000"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
       @parsed_data_directions = JSON.parse(open(@url_directions).read)
       @duration_in_traffic = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
       @duration = @parsed_data_directions["routes"][0]["legs"][0]["duration"]["value"]

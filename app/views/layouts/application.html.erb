@@ -1,42 +1,28 @@
 <!DOCTYPE html>
-<%= javascript_include_tag :defaults %>
-
-<style>
-body {
-  padding-top: 60px;
-}
-</style>
-
-
-
 <html lang="en">
 <head>
-
   <meta charset="utf-8">
   <title>YavanGooglePlaces</title>
 
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!--
-  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen"
-  href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
   <style>
--->
-<!--/* Only necessary if you are using navbar-fixed-top */
-body {
-padding-top: 60px;
-}-->
-  
-</style>
+    /* Only necessary if you are using navbar-fixed-top */
+    body {
+      padding-top: 60px;
+    }
+  </style>
 
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -57,39 +43,20 @@ padding-top: 60px;
         <ul class="nav navbar-nav">
           <li><a href="/confirmed_passengers">Confirmed Passengers</a></li>
           <li><a href="/route_poolings">Route Poolings</a></li>
-          <li><a href="/route_requests">Route Requests</a></li>
+          <li><a href="/route_requests?new_origin">New Route Request</a></li>
           <li><a href="/users">Users</a></li>
-          <li><a href="/rails/info">Sitemap</a></li>
+          <% if user_signed_in? %>
+          <li><a href="/users/<%=current_user.id%>">Show Page</a></li>
+          <% end%>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <% if current_user.present? %>
-          <li>
-            <a href="/users/edit">
-              <%= current_user.email %> and <%=current_user.id%>
-            </a>
-          </li>
-
-          <li>
-            <%= link_to 'Sign Outtt', destroy_user_session_url, method: :delete %>
-            <!-- <a href="users/sign_out" data-method="delete" rel="nofollow"> -->
-
-              <!-- Sign Out -->
-            <!-- </a> -->
-          </li>
-          <% else %>
-          <li>
-            <a href="/users/sign_up">
-              Sign Up
-            </a>
-          </li>
-
-          <li>
-            <a href="/users/sign_in">
-              Sign In
-            </a>
-          </li>
-          <% end %>
+          <% if user_signed_in? %>
+        <li><a href="/users/edit"><%=current_user.username%></a></li>
+        <li><a href="/users/sign_out" data-method="delete" rel="nofollow"> Sign Out
+          <i class="fa fa-fw fa-sign-out"/></i>
+        </a>
+        <% end%>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
@@ -97,17 +64,17 @@ padding-top: 60px;
 
   <div class="container">
     <% if notice.present? %>
-    <div class="alert alert-dismissable alert-success">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= notice %>
-    </div>
+      <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= notice %>
+      </div>
     <% end %>
 
     <% if alert.present? %>
-    <div class="alert alert-dismissable alert-warning">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= alert %>
-    </div>
+      <div class="alert alert-dismissable alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= alert %>
+      </div>
     <% end %>
 
     <%= yield %>

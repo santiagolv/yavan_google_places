@@ -16,7 +16,7 @@
           <input class="form-control" type="text" name="user_origin_request"  placeholder="Type Origin Neighborhood and City" id="origin_request">
         </div>
 
-            <!--Destination Request Fields -->
+        <!--Destination Request Fields -->
         <div class="form-group" align="align-right">
           <label for="destination_request">Destination Neighborhood and City</label>
           <input class="form-control" type="text" name="user_destination_request"  placeholder="Type Destination Neighborhood and City" id="destination_request">
@@ -24,15 +24,20 @@
 
         <!--Destination Arrival Date and Time Fields -->
         <div class='input-group date' id='datetimepicker1'>
-          <input type='text' class="form-control" name="held_on" id="held_on">
+          <label for="date_time_departure">Departure Date and Time</label>
+
+          <input type="text" class="form-control" name="date_time_departure" id="date_time_departure">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
         </div>
         <script type="text/javascript">
-          $(function () {
-            $('#datetimepicker1').datetimepicker();
-          });
+        $(function () {
+          $('#datetimepicker1').datetimepicker({
+          stepping: 15,
+          inline: true,
+          } );
+        });
         </script>
 
 
