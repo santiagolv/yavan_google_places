@@ -72,21 +72,32 @@ class RouteRequestsController < ApplicationController
     elsif @status_destination!="OK"
       redirect_to(:back, :notice=>"Destination Not Found, Please Try Again." )
     else
+#Origin Parametes
       @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
-      @google_id_city = @parsed_data_origin["results"][0]["place_id"]
+      @origin_city = @parsed_data_origin["results"][0]["address_components"][1]["long_name"]
+      @origin_formatted_address = @parsed_data_origin["results"][0]["formatted_address"]
+
+#Destination Parameters
       @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
+      @destination_city = @parsed_data_destination["results"][0]["address_components"][1]["long_name"]
+      @destination_formatted_address = @parsed_data_destination["results"][0]["formatted_address"]
+
+#API into Directions to extract travel times
       @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
       @parsed_data_directions = JSON.parse(open(@url_directions).read)
-      @duration_in_traffic = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
-      @duration = @parsed_data_directions["routes"][0]["legs"][0]["duration"]["value"]
+      @duration_in_traffic = Array.new
+      @duration_in_traffic[0] = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
+      @duration_in_traffic[1] = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["text"]
+      @duration = @parsed_data_directions["routes"][0]["legs"][0]["duration"]["text"]
 #same API but with pessimistic traffic mode
       @url_directions_pessimistic = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&traffic_model=pessimistic"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
-      @parsed_data_directions_pessimistic = JSON.parse(open(@url_directions_pessimistic).read)
-      @duration_in_traffic_pessimistic = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
-      @duration_pessimistic = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration"]["value"]
-
-
-      @max_duration = [@duration_in_traffic, @duration, @duration_pessimistic, @duration_in_traffic_pessimistic].max.to_f / 3600
+      @parsed_data_directions_pessimistic= JSON.parse(open(@url_directions_pessimistic).read)
+      @duration_in_traffic[2] = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
+      @duration_in_traffic[3] = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["text"]
+# Duration Time
+      @max_duration = (@duration_in_traffic[0].to_i+@duration_in_traffic[2].to_i)/2
+      @date_time_arrival = (@date_time.to_i+@max_duration.to_i)
+      @date_time_arrival_formatted = DateTime.strptime(@date_time_arrival.to_s,'%s')
       render("route_requests/route_validation")
     end
   end
