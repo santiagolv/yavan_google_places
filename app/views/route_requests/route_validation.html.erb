@@ -61,56 +61,61 @@
       </body>
       </html>
     </div>
+
+    <!-- Destination Map -->
+
     <div class="col-md-5">
       <p>Destination Requested:<%= @destination_formatted_address%></p>
       <p>Estimated Arrival Time: <%=@date_time_arrival_formatted%> </p>
-      <!--  <script>
-      var map_destination;
-      var service_destination;
-      var infoWindow_destination;
-      function initialize_destination() {
+    </div>
+<!--
+    <script>
+    var map_destination;
+    var service_destination;
+    var infoWindow_destination;
+    function initialize_destination() {
 
       var myLatlng_destination = new google.maps.LatLng('41.8853195', '-87.6282337');
 
       var mapOptions_destination = {
-      zoom: 14,
-      center: myLatlng_destination
-    };
+        zoom: 14,
+        center: myLatlng_destination
+      };
 
-    map_destination = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions_destination);
-    infoWindow_destination = new google.maps.infoWindow();
-    var service_destination = new google.maps.places.PlacesService(map_destination);
+      map_destination = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions_destination);
+      infoWindow_destination = new google.maps.infoWindow();
+      var service_destination = new google.maps.places.PlacesService(map_destination);
 
-    service.getDetails({
-    placeId: '<%=@google_id_destination%>'
-  }, function(result, status) {
-  if (status != google.maps.places.PlacesServiceStatus.OK) {
-  alert(status);
-  return;
-}
-var marker_destination = new google.maps.Marker({
-map: map_destination,
-position: result.geometry.location,
-});
-var address_destination = result.adr_address;
-var newAddr_destination = address_destination.split("</span>,");
+      service.getDetails({
+        placeId: "<%=@google_id_destination%>"
+      }, function(result, status) {
+        if (status != google.maps.places.PlacesServiceStatus.OK) {
+          alert(status);
+          return;
+        }
+        var marker_destination = new google.maps.Marker({
+          map: map_destination,
+          position: result.geometry.location,
+        });
+        var address_destination = result.adr_address;
+        var newAddr_destination = address_destination.split("</span>,");
 
-infoWindow_destination.setContent(result.name + "<br>" + newAddr_destination[0] + "<br>" + newAddr_destination[1] + "<br>" + newAddr_destination[2]);
-infoWindow_destination.open(map_destination, marker_destination);
-});
+        infoWindow_destination.setContent(result.name + "<br>" + newAddr_destination[0] + "<br>" + newAddr_destination[1] + "<br>" + newAddr_destination[2]);
+        infoWindow_destination.open(map_destination, marker_destination);
+      });
 
-}
+    }
 
-google.maps.event.addDomListener(window, 'load', initialize_destination);
+    google.maps.event.addDomListener(window, 'load', initialize_destination);
 
-</script>
-<div id="map-canvas" style="width: 400px; height: 300px;">
-<div id="map-canvas"></div>
-</div>
-</div>
-<!-->
+    </script>
+    <div id="map-canvas" style="width: 400px; height: 300px;">
+      <div id="map-canvas"></div>
+    </div>
+  </div>
 
+-->
 
 </div>
 </div>
