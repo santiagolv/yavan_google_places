@@ -46,9 +46,17 @@ class RouteRequestsController < ApplicationController
     @origin_request = params[:user_origin_request]
     @destination_request = params[:user_destination_request]
     @date_time_departure = params[:date_time_departure]
-    @epoch = Date.new(1970,1,1)
-    @date_time = DateTime.parse(@date_time_departure.to_s)
-    @date_time_google = @date_time.to_i
+    @date_time = DateTime.parse(@date_time_departure).to_time.to_i
+
+    @date_time_to_s = @date_time.to_s
+    @date_string_inverted = @date_time_to_s[0..4]+@date_time_to_s[8..9]+@date_time_to_s[4..6]+@date_time_to_s[10..24]
+    years = (@date_time_departure[6..9].to_i-1970)*31556926
+    months = @date_time_departure[0..1].to_i*2629743
+    days = @date_time_departure[3..4].to_i*86400
+    hours = @date_time_departure[11..12].to_i*3600
+    minutes = @date_time_departure[14..15].to_i*60
+    @date_time_google = @date_time+3600*6
+    @date_time2 = DateTime.parse(@date_time_departure).to_time.to_i
 
 
     @origin_request_no_space = URI.encode(@origin_request)
@@ -67,11 +75,18 @@ class RouteRequestsController < ApplicationController
       @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
       @google_id_city = @parsed_data_origin["results"][0]["place_id"]
       @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
-      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time=1483290000"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
       @parsed_data_directions = JSON.parse(open(@url_directions).read)
       @duration_in_traffic = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
       @duration = @parsed_data_directions["routes"][0]["legs"][0]["duration"]["value"]
-      @max_duration = [@duration_in_traffic, @duration].max.to_f / 3600
+#same API but with pessimistic traffic mode
+      @url_directions_pessimistic = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&traffic_model=pessimistic"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      @parsed_data_directions_pessimistic = JSON.parse(open(@url_directions_pessimistic).read)
+      @duration_in_traffic_pessimistic = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
+      @duration_pessimistic = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration"]["value"]
+
+
+      @max_duration = [@duration_in_traffic, @duration, @duration_pessimistic, @duration_in_traffic_pessimistic].max.to_f / 3600
       render("route_requests/route_validation")
     end
   end
