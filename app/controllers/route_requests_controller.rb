@@ -32,32 +32,17 @@ class RouteRequestsController < ApplicationController
   end
 
   def new
-    @route_request = RouteRequest.new
-
-    render("route_requests/new.html.erb")
+    render("route_requests/new" )
   end
 
-  def new_origin
-    @origin_request = String.new
-    render("route_requests/new_origin" )
-  end
-
-  def origin_validation
+  def route_validation
     @origin_request = params[:user_origin_request]
     @destination_request = params[:user_destination_request]
     @date_time_departure = params[:date_time_departure]
     @date_time = DateTime.parse(@date_time_departure).to_time.to_i
 
     @date_time_to_s = @date_time.to_s
-    @date_string_inverted = @date_time_to_s[0..4]+@date_time_to_s[8..9]+@date_time_to_s[4..6]+@date_time_to_s[10..24]
-    years = (@date_time_departure[6..9].to_i-1970)*31556926
-    months = @date_time_departure[0..1].to_i*2629743
-    days = @date_time_departure[3..4].to_i*86400
-    hours = @date_time_departure[11..12].to_i*3600
-    minutes = @date_time_departure[14..15].to_i*60
     @date_time_google = @date_time+3600*6
-    @date_time2 = DateTime.parse(@date_time_departure).to_time.to_i
-
 
     @origin_request_no_space = URI.encode(@origin_request)
     @destination_request_no_space = URI.encode(@destination_request)
@@ -72,29 +57,33 @@ class RouteRequestsController < ApplicationController
     elsif @status_destination!="OK"
       redirect_to(:back, :notice=>"Destination Not Found, Please Try Again." )
     else
-#Origin Parametes
+      #Origin Parametes
       @google_id_origin = @parsed_data_origin["results"][0]["place_id"]
       @origin_city = @parsed_data_origin["results"][0]["address_components"][1]["long_name"]
       @origin_formatted_address = @parsed_data_origin["results"][0]["formatted_address"]
+      @origin_lat =  @parsed_data_origin["results"][0]["geometry"]["location"]["lat"]
+      @origin_long =  @parsed_data_origin["results"][0]["geometry"]["location"]["lng"]
 
-#Destination Parameters
+      #Destination Parameters
       @google_id_destination = @parsed_data_destination["results"][0]["place_id"]
       @destination_city = @parsed_data_destination["results"][0]["address_components"][1]["long_name"]
       @destination_formatted_address = @parsed_data_destination["results"][0]["formatted_address"]
+      @destination_lat =  @parsed_data_destination["results"][0]["geometry"]["location"]["lat"]
+      @destination_long =  @parsed_data_destination["results"][0]["geometry"]["location"]["lng"]
 
-#API into Directions to extract travel times
-      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      #API into Directions to extract travel times
+      @url_directions = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&key=AIzaSyA5xDoZA9AbMjYNiGqtq3nSe6lnb044fq4"
       @parsed_data_directions = JSON.parse(open(@url_directions).read)
       @duration_in_traffic = Array.new
       @duration_in_traffic[0] = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
       @duration_in_traffic[1] = @parsed_data_directions["routes"][0]["legs"][0]["duration_in_traffic"]["text"]
       @duration = @parsed_data_directions["routes"][0]["legs"][0]["duration"]["text"]
-#same API but with pessimistic traffic mode
-      @url_directions_pessimistic = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&traffic_model=pessimistic"+"&key=AIzaSyBf6RyaF0JhK27iBL5QIs82pRzYwKWogLE"
+      #same API but with pessimistic traffic mode
+      @url_directions_pessimistic = "https://maps.googleapis.com/maps/api/directions/json?&origin=place_id:"+@google_id_origin.to_s+"&destination=place_id:"+@google_id_destination.to_s+"&departure_time="+@date_time_google.to_s+"&traffic_model=pessimistic"+"&key=AIzaSyA5xDoZA9AbMjYNiGqtq3nSe6lnb044fq4"
       @parsed_data_directions_pessimistic= JSON.parse(open(@url_directions_pessimistic).read)
       @duration_in_traffic[2] = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["value"]
       @duration_in_traffic[3] = @parsed_data_directions_pessimistic["routes"][0]["legs"][0]["duration_in_traffic"]["text"]
-# Duration Time
+      # Duration Time
       @max_duration = (@duration_in_traffic[0].to_i+@duration_in_traffic[2].to_i)/2
       @date_time_arrival = (@date_time.to_i+@max_duration.to_i)
       @date_time_arrival_formatted = DateTime.strptime(@date_time_arrival.to_s,'%s')
@@ -107,31 +96,30 @@ class RouteRequestsController < ApplicationController
 
     @route_request.origin_query = params[:origin_query]
     @route_request.origin_city = params[:origin_city]
-    @route_request.origin_place = params[:origin_place]
-    @route_request.origin_google_id = params[:origin_google_id]
+    @route_request.origin_place = params[:origin_formatted_address]
+    @route_request.origin_google_id = "Abcdefg"
     @route_request.destination_query = params[:destination_query]
     @route_request.destination_city = params[:destination_city]
-    @route_request.destination_place = params[:destination_place]
-    @route_request.destination_google_id = params[:destination_google_id]
+    @route_request.destination_place = params[:destination_formatted_address]
+    @route_request.destination_google_id = params[:google_id_destination]
     @route_request.destination_arrival_date_time = params[:destination_arrival_date_time]
-    @route_request.max_time_in_advance = params[:max_time_in_advance]
     @route_request.user_id = params[:user_id]
     @route_request.origin_google_suggested_departure_time = params[:origin_google_suggested_departure_time]
 
     save_status = @route_request.save
+render("/route_requests/index.html.erb")
+    #if save_status == true
+    #  referer = URI(request.referer).path
 
-    if save_status == true
-      referer = URI(request.referer).path
-
-      case referer
-      when "/route_requests/new", "/create_route_request"
-        redirect_to("/route_requests")
-      else
-        redirect_back(:fallback_location => "/", :notice => "Route request created successfully.")
-      end
-    else
-      render("route_requests/new.html.erb")
-    end
+    #  case referer
+    #  when "/route_requests/new", "/create_route_request","create_origin_request"
+    #    redirect_to("/route_requests", :notice => "Route request created successfully.")
+    #  else
+    #    redirect_back(:fallback_location => "/", :notice => "Route request created successfully.")
+    #  end
+    #else
+    #  render("route_requests/new.html.erb")
+    #end
   end
 
   def edit
@@ -177,10 +165,9 @@ class RouteRequestsController < ApplicationController
 
     @route_request.destroy
 
-    if URI(request.referer).path == "/route_requests/#{@route_request.id}"
-      redirect_to("/", :notice => "Route request deleted.")
-    else
-      redirect_back(:fallback_location => "/", :notice => "Route request deleted.")
-    end
+
+      redirect_to("/route_requests", :notice => "Route request deleted.")
+
+
   end
 end

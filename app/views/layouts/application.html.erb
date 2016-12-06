@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>YavanGooglePlaces</title>
+  <title>YaVan!</title>
 
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -35,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand">YavanGooglePlaces</a>
+        <a href="/" class="navbar-brand">YaVan!</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,18 +44,18 @@
         <ul class="nav navbar-nav">
           <li><a href="/confirmed_passengers">Confirmed Passengers</a></li>
           <li><a href="/route_poolings">Route Poolings</a></li>
-          <li><a href="/route_requests?new_origin">New Route Request</a></li>
+          <li><a href="/route_requests/new">New Route Request</a></li>
           <li><a href="/users">Users</a></li>
           <% if user_signed_in? %>
           <li><a href="/users/<%=current_user.id%>">Show Page</a></li>
           <% else %>
-          <li><a href="/users/sing_in">Sign In</a></li>
+          <li><a href="/users/sign_in">Sign In</a></li>
           <% end%>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
-          <li><a href="/users/edit"><%=current_user.username%></a></li>
+          <li><a href="/users/edit"><%=current_user.name%></a></li>
           <li><a href="/users/sign_out" data-method="delete" rel="nofollow"> Sign Out
             <i class="fa fa-fw fa-sign-out"/></i>
           </a>

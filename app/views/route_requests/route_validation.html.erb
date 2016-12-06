@@ -4,7 +4,6 @@
   <script src="https://code.js/jquery-1.11.0.min.js"></script>
   <script src="https://code.js/bootstrap.min.js"></script>
   <script src="https://code.js/wow.min.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyCAT7h418C4ZFadwmv5cRkvj_HNo9e9LHM"></script>
 
   <div class="conainer">
     <div class="row">
@@ -12,110 +11,206 @@
         <p>Origin Requested: <%= @origin_formatted_address%></p>
         <p>Departure Time Requested: <%= DateTime.parse(@date_time_departure)%></p>
 
+        <!--
+
         <script>
         var map;
         var service;
         var infoWindow;
         function initialize() {
 
-          var myLatlng = new google.maps.LatLng('41.8853195', '-87.6282337');
+        var myLatlng = new google.maps.LatLng("<%= @origin_lat%>","<%=@origin_long%>");
 
-          var mapOptions = {
-            zoom: 14,
-            center: myLatlng
-          };
-
-          map = new google.maps.Map(document.getElementById('map-canvas'),
-          mapOptions);
-          infoWindow = new google.maps.InfoWindow();
-          var service = new google.maps.places.PlacesService(map);
-
-          service.getDetails({
-            placeId: '<%=@google_id_origin%>'
-          }, function(result, status) {
-            if (status != google.maps.places.PlacesServiceStatus.OK) {
-              alert(status);
-              return;
-            }
-            var marker = new google.maps.Marker({
-              map: map,
-              position: result.geometry.location,
-            });
-
-            var address = result.adr_address;
-            var newAddr = address.split("</span>,");
-
-            infoWindow.setContent(result.name + "<br>" + newAddr[0] + "<br>" + newAddr[1] + "<br>" + newAddr[2]);
-            infoWindow.open(map, marker);
-          });
-
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-
-        </script>
-        <div id="map-canvas" style="width: 400px; height: 300px;">
-          <div id="map-canvas"></div>
-        </div>
-
-      </body>
-      </html>
-    </div>
-
-    <!-- Destination Map -->
-
-    <div class="col-md-5">
-      <p>Destination Requested:<%= @destination_formatted_address%></p>
-      <p>Estimated Arrival Time: <%=@date_time_arrival_formatted%> </p>
-    </div>
-<!--
-    <script>
-    var map_destination;
-    var service_destination;
-    var infoWindow_destination;
-    function initialize_destination() {
-
-      var myLatlng_destination = new google.maps.LatLng('41.8853195', '-87.6282337');
-
-      var mapOptions_destination = {
+        var mapOptions = {
         zoom: 14,
-        center: myLatlng_destination
+        center: myLatlng
       };
 
-      map_destination = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions_destination);
-      infoWindow_destination = new google.maps.infoWindow();
-      var service_destination = new google.maps.places.PlacesService(map_destination);
+      map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+      infoWindow = new google.maps.InfoWindow();
+      var service = new google.maps.places.PlacesService(map);
 
       service.getDetails({
-        placeId: "<%=@google_id_destination%>"
-      }, function(result, status) {
-        if (status != google.maps.places.PlacesServiceStatus.OK) {
-          alert(status);
-          return;
-        }
-        var marker_destination = new google.maps.Marker({
-          map: map_destination,
-          position: result.geometry.location,
-        });
-        var address_destination = result.adr_address;
-        var newAddr_destination = address_destination.split("</span>,");
+      placeId: '<%=@google_id_origin%>'
+    }, function(result, status) {
+    if (status != google.maps.places.PlacesServiceStatus.OK) {
+    alert(status);
+    return;
+  }
+  var marker = new google.maps.Marker({
+  map: map,
+  position: result.geometry.location,
+});
 
-        infoWindow_destination.setContent(result.name + "<br>" + newAddr_destination[0] + "<br>" + newAddr_destination[1] + "<br>" + newAddr_destination[2]);
-        infoWindow_destination.open(map_destination, marker_destination);
+var address = result.adr_address;
+var newAddr = address.split("</span>,");
+
+infoWindow.setContent(result.name + "<br>" + newAddr[0] + "<br>" + newAddr[1] + "<br>" + newAddr[2]);
+infoWindow.open(map, marker);
+});
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+<div id="map-canvas" style="width: 400px; height: 300px;">
+<div id="map-canvas"></div>
+</div>
+-->
+
+
+
+</div>
+
+<!-- Destination Map -->
+
+<div class="col-md-5">
+  <p>Destination Requested:<%= @destination_formatted_address%></p>
+  <p>Estimated Arrival Time: <%=@date_time_arrival_formatted%> </p>
+</div>
+<!--
+<script>
+var map_destination;
+var service_destination;
+var infoWindow_destination;
+function initialize_destination() {
+
+var myLatlng_destination = new google.maps.LatLng('41.8853195', '-87.6282337');
+
+var mapOptions_destination = {
+zoom: 14,
+center: myLatlng_destination
+};
+
+map_destination = new google.maps.Map(document.getElementById('map-canvas'),
+mapOptions_destination);
+infoWindow_destination = new google.maps.infoWindow();
+var service_destination = new google.maps.places.PlacesService(map_destination);
+
+service.getDetails({
+placeId: "<%=@google_id_destination%>"
+}, function(result, status) {
+if (status != google.maps.places.PlacesServiceStatus.OK) {
+alert(status);
+return;
+}
+var marker_destination = new google.maps.Marker({
+map: map_destination,
+position: result.geometry.location,
+});
+var address_destination = result.adr_address;
+var newAddr_destination = address_destination.split("</span>,");
+
+infoWindow_destination.setContent(result.name + "<br>" + newAddr_destination[0] + "<br>" + newAddr_destination[1] + "<br>" + newAddr_destination[2]);
+infoWindow_destination.open(map_destination, marker_destination);
+});
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize_destination);
+
+</script>
+<div id="map-canvas" style="width: 400px; height: 300px;">
+<div id="map-canvas"></div>
+</div>
+</div>
+
+-->
+
+<!-- Map with directions -->
+
+</div>
+<div class="row col-md-offset-1">
+  <div id="map-canvas" style="width: 850px; height: 400px;">
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false?&key=AIzaSyA5xDoZA9AbMjYNiGqtq3nSe6lnb044fq4"></script>
+    <script>
+    function initMap() {
+      var pointA = new google.maps.LatLng("<%=@origin_lat%>", "<%=@origin_long%>"),
+      pointB = new google.maps.LatLng("<%=@destination_lat%>", "<%=@destination_long%>"),
+      myOptions = {
+        zoom: 7,
+        center: pointA
+      },
+      map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+      // Instantiate a directions service.
+      directionsService = new google.maps.DirectionsService,
+      directionsDisplay = new google.maps.DirectionsRenderer({
+        map: map
+      }),
+      markerA = new google.maps.Marker({
+        position: pointA,
+        title: "point A",
+        label: "A",
+        map: map
+      }),
+      markerB = new google.maps.Marker({
+        position: pointB,
+        title: "point B",
+        label: "B",
+        map: map
       });
+
+      // get route from A to B
+      calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
 
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize_destination);
 
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+      directionsService.route({
+        origin: pointA,
+        destination: pointB,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    }
+
+    initMap();
     </script>
-    <div id="map-canvas" style="width: 400px; height: 300px;">
-      <div id="map-canvas"></div>
-    </div>
   </div>
+</div>
+</div>
+<p><%=@google_id_destination%></p>
+<p><%=@google_id_origin%></p>
+<p><%=@origin_city%></p>
+<p><%=DateTime.parse(@date_time_departure)%></p>
 
--->
+<div class="row">
+  <form action="/create_route_request">
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+    <!-- Origin Parameters -->
+    <div class="form-group">
+      <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+      <input type="hidden" id="origin_query" name="origin_query" placeholder="Origin Query" class="form-control" value="<%=@origin_request%>">
+      <input type="hidden" id="origin_city" name="origin_city" placeholder="Origin City" class="form-control" value="<%=@origin_city.to_s%>">
+      <input type="hidden" id="origin_formatted_address" name="origin_formatted_address" placeholder="Origin Place" class="form-control" value="<%=@origin_formatted_address.to_s%>">
+      <input type="hidden" id="google_id_origin" name="google_id_origin" placeholder="Origin Google ID" class="form-control" value="<%=@google_id_origin%>">
+      <input type="hidden" id="origin_google_suggested_departure_time" name="origin_google_suggested_departure_time" placeholder="Departur Time" class="form-control" value="<%=DateTime.parse(@date_time_departure).to_s%>">
+      <!-- Destination Parameters -->
+      <input type="hidden" id="destination_query" name="destination_query" placeholder="Destination Query" class="form-control" value="<%=@destination_request%>">
+      <input type="hidden" id="destination_city" name="destination_city" placeholder="Destination City" class="form-control" value="<%=@destination_city.to_s%>">
+      <input type="hidden" id="destination_formatted_address" name="destination_formatted_address" placeholder="Destination Place" class="form-control" value="<%=@destination_formatted_address.to_s%>">
+      <input type="hidden" id="google_id_destination" name="google_id_destination" placeholder="Destination Google ID" class="form-control" value="<%=@google_id_destination.to_s%>">
+      <input type="hidden" id="destination_arrival_date_time" name="destination_arrival_date_time" placeholder="Destination Arrival Date Time" class="form-control" value="<%=@date_time_arrival_formatted.to_s%>">
+    </div>
+    <button class="btn btn-primary btn-lg btn-block">
+      Create Route
+    </button>
+    <button class="btn btn-default btn-lg btn-block btn-warning">
+      <a href="/route_requests/new_origin">
+        Back
+      </a>
+    </button>
+  </form>
 
 </div>
 </div>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root :to => "route_requests#new_origin"
+  root :to => "route_requests#new"
   # Routes for the Confirmed_passenger resource:
   # CREATE
   get "/confirmed_passengers/new", :controller => "confirmed_passengers", :action => "new"
@@ -39,10 +39,9 @@ Rails.application.routes.draw do
 
   # Routes for the Route_request resource:
   # CREATE
-  get "/route_requests/new_origin", :controller => "route_requests", :action => "new_origin"
   get "/route_requests/new", :controller => "route_requests", :action => "new"
-  post "/create_route_request", :controller => "route_requests", :action => "create"
-  post "/create_origin_request/", :controller => "route_requests", :action => "origin_validation"
+  get "/create_route_request", :controller => "route_requests", :action => "create"
+  post "/route_validation", :controller => "route_requests", :action => "route_validation"
 
   # READ
   get "/route_requests", :controller => "route_requests", :action => "index"
