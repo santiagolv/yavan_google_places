@@ -91,6 +91,7 @@ handler_1.buildMap({ provider: {}, internal: {id: 'origin_map'}}, function(){
   ]);
   handler_1.bounds.extendWith(markers);
   handler_1.fitMapToBounds();
+  handler_1.getMap().setZoom(14)
 });
 
 handler_2 = Gmaps.build('Google');
@@ -104,6 +105,7 @@ handler_2.buildMap({ provider: {}, internal: {id: 'destination_map'}}, function(
   ]);
   handler_2.bounds.extendWith(markers);
   handler_2.fitMapToBounds();
+  handler_2.getMap().setZoom(14)
 });
 
 
