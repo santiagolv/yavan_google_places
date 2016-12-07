@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>
+    Route poolings
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% @route_requests = RouteRequest.all %>
+    <p>Poolings: <%= @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place).distinct.count(:user_id)%>
+    </p>
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Date</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Passengers pooled</th>
+      </tr>
+      <% @poolings.each do |route_pooling| %>
+      <tr>
+        <td><%= route_pooling[0][0] %></td>
+        <td><%= route_pooling[0][1] %></td>
+        <td><%= route_pooling[0][2] %></td>
+        <td><%= route_pooling[1] %></td>
+        <% end %>
+
+      </table>
+
+    </div>
+  </div>

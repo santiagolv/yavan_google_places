@@ -12,6 +12,10 @@ class RoutePoolingsController < ApplicationController
 
     render("route_poolings/show.html.erb")
   end
+  def view
+
+    render("route_poolings/poolings.html.erb")
+  end
 
   def new
     @route_pooling = RoutePooling.new

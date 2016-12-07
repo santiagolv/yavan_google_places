@@ -10,42 +10,33 @@
     <table class="table table-striped table-hover">
       <tr>
         <th>Id</th>
-        <th>Origin query</th>
-        <th>Origin city</th>
-        <th>Origin place</th>
-        <th>Origin google</th>
-        <th>Destination query</th>
-        <th>Destination city</th>
-        <th>Destination place</th>
-        <th>Destination google</th>
+        <th>Origin City</th>
+        <th>Origin Place</th>
+        <th>Origin Departure Time</th>
+        <th>Destination City</th>
+        <th>Destination Place</th>
         <th>Destination arrival date time</th>
-        <th>Max time in advance</th>
         <th>User</th>
-        <th>Origin google suggested departure time</th>
         <th>Actions</th>
       </tr>
       <% @route_requests = RouteRequest.all %>
       <% @route_requests.each do |route_request| %>
       <tr>
         <td><%= route_request.id %></td>
-        <td><%= route_request.origin_query %></td>
         <td><%= route_request.origin_city %></td>
         <td><%= route_request.origin_place %></td>
-        <td><%= route_request.origin_google_id %></td>
-        <td><%= route_request.destination_query %></td>
+        <td><%= route_request.origin_google_suggested_departure_time %></td>
+
         <td><%= route_request.destination_city %></td>
         <td><%= route_request.destination_place %></td>
-        <td><%= route_request.destination_google_id %></td>
         <td><%= route_request.destination_arrival_date_time %></td>
-        <td><%= route_request.max_time_in_advance %></td>
         <td>
           <% if route_request.user.present? %>
           <a href="/users/<%= route_request.user.id %>">
-            <%= route_request.user.email %>
+            <%= route_request.user.name %>
           </a>
           <% end %>
         </td>
-        <td><%= route_request.origin_google_suggested_departure_time %></td>
         <td>
           <a href="/route_requests/<%= route_request.id %>" class="btn btn-primary">Show</a>
 

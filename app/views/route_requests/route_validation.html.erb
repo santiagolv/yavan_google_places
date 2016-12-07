@@ -34,12 +34,7 @@
 
     <div class="row">
       <div class="col-md-offset-1 col-md-6">
-        <p><%=@google_id_destination%></p>
-        <p><%=@google_id_origin.to_s%></p>
-        <p><%=@origin_city%></p>
-        <p><%=DateTime.parse(@date_time_departure)%></p>
-        <p><%= @origin_lat.to_s %></p>
-        <form action="/create_route_request">
+          <form action="/create_route_request">
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
         </div>
         <div class="row">
