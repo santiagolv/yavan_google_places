@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115232046) do
+ActiveRecord::Schema.define(version: 20161207023444) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20161115232046) do
     t.text     "origin_query"
     t.string   "origin_city"
     t.string   "origin_place"
-    t.integer  "origin_google_id"
+    t.string   "origin_google_id"
     t.text     "destination_query"
     t.string   "destination_city"
     t.string   "destination_place"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20161115232046) do
     t.datetime "destination_arrival_date_time"
     t.time     "max_time_in_advance"
     t.integer  "user_id"
-    t.time     "origin_google_suggested_departure_time"
+    t.datetime "origin_google_suggested_departure_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

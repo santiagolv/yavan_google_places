@@ -97,7 +97,7 @@ class RouteRequestsController < ApplicationController
     @route_request.origin_query = params[:origin_query]
     @route_request.origin_city = params[:origin_city]
     @route_request.origin_place = params[:origin_formatted_address]
-    @route_request.origin_google_id = "Abcdefg"
+    @route_request.origin_google_id = params[:google_id_origin] # Field not updating!!!
     @route_request.destination_query = params[:destination_query]
     @route_request.destination_city = params[:destination_city]
     @route_request.destination_place = params[:destination_formatted_address]
@@ -106,8 +106,10 @@ class RouteRequestsController < ApplicationController
     @route_request.user_id = params[:user_id]
     @route_request.origin_google_suggested_departure_time = params[:origin_google_suggested_departure_time]
 
+    @route_request.save
+
     save_status = @route_request.save
-render("/route_requests/index.html.erb")
+    render("/route_requests/index.html.erb")
     #if save_status == true
     #  referer = URI(request.referer).path
 
@@ -166,7 +168,7 @@ render("/route_requests/index.html.erb")
     @route_request.destroy
 
 
-      redirect_to("/route_requests", :notice => "Route request deleted.")
+    redirect_to("/route_requests", :notice => "Route request deleted.")
 
 
   end

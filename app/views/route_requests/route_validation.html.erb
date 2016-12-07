@@ -19,8 +19,7 @@
 
     <div class="row">
       <div class="col-md-offset-1 col-md-8">
-        <h3> Travel Time </h3>
-        <h3> Expected: <%=@duration_in_traffic[1]%> and Pessimistic: <%=@duration_in_traffic[3]%> </h3>
+        <h4> Expected Travel Time: <%=@duration_in_traffic[1]%> (Pessimistic: <%=@duration_in_traffic[3]%>) </h4>
       </div>
     </div>
 
@@ -36,7 +35,7 @@
     <div class="row">
       <div class="col-md-offset-1 col-md-6">
         <p><%=@google_id_destination%></p>
-        <p><%=@google_id_origin%></p>
+        <p><%=@google_id_origin.to_s%></p>
         <p><%=@origin_city%></p>
         <p><%=DateTime.parse(@date_time_departure)%></p>
         <p><%= @origin_lat.to_s %></p>
@@ -50,7 +49,7 @@
             <input type="hidden" id="origin_query" name="origin_query" placeholder="Origin Query" class="form-control" value="<%=@origin_request%>">
             <input type="hidden" id="origin_city" name="origin_city" placeholder="Origin City" class="form-control" value="<%=@origin_city.to_s%>">
             <input type="hidden" id="origin_formatted_address" name="origin_formatted_address" placeholder="Origin Place" class="form-control" value="<%=@origin_formatted_address.to_s%>">
-            <input type="hidden" id="google_id_origin" name="google_id_origin" placeholder="Origin Google ID" class="form-control" value="<%=@google_id_origin%>">
+            <input type="hidden" id="google_id_origin" name="google_id_origin" placeholder="Origin Google ID" class="form-control" value="<%=@google_id_origin.to_s%>">
             <input type="hidden" id="origin_google_suggested_departure_time" name="origin_google_suggested_departure_time" placeholder="Departur Time" class="form-control" value="<%=DateTime.parse(@date_time_departure).to_s%>">
             <!-- Destination Parameters -->
             <input type="hidden" id="destination_query" name="destination_query" placeholder="Destination Query" class="form-control" value="<%=@destination_request%>">
@@ -62,12 +61,12 @@
           <button class="btn btn-primary btn-lg btn-block">
             Create Route
           </button>
-          <button class="btn btn-default btn-lg btn-block btn-warning">
-            <a href="/route_requests/new_origin">
-              Back
-            </a>
-          </button>
         </form>
+        <button class="btn btn-default btn-lg btn-block btn-warning">
+          <a href="/route_requests/new">
+            Back
+          </a>
+        </button>
       </div>
     </div>
   </div>
