@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20161207023444) do
     t.datetime "arrival_date_time"
     t.string   "origin_place"
     t.string   "origin_city"
-    t.integer  "origin_google_id"
+    t.string  "origin_google_id"
     t.string   "destination_place"
     t.string   "destination_city"
     t.integer  "user_id"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20161207023444) do
     t.datetime "destination_arrival_date_time"
     t.time     "max_time_in_advance"
     t.integer  "user_id"
-    t.datetime "origin_google_suggested_departure_time"
+    t.datetime "origin_departure_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
