@@ -17,6 +17,7 @@
         <th>Destination City</th>
         <th>Destination Place</th>
         <th>Destination arrival date time</th>
+        <th>Destination arrival time inverval</th>
         <th>User</th>
         <th>Actions</th>
       </tr>
@@ -32,6 +33,7 @@
         <td><%= route_request.destination_city %></td>
         <td><%= route_request.destination_place %></td>
         <td><%= route_request.destination_arrival_date_time %></td>
+        <td><%= route_request.destination_arrival_time_interval %></td>
         <td>
           <% if route_request.user.present? %>
           <a href="/users/<%= route_request.user.id %>">

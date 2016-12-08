@@ -20,10 +20,6 @@ class RouteRequestsController < ApplicationController
 
   def index
     @route_requests =RouteRequest.all
-    @route_requests.each do |route_request|
-    route_request.origin_departure_date = route_request.origin_google_suggested_departure_time.to_date.to_s
-    route_request.save
-  end
     render("route_requests/index.html.erb")
   end
 
@@ -99,7 +95,8 @@ class RouteRequestsController < ApplicationController
     @route_request.origin_query = params[:origin_query]
     @route_request.origin_city = params[:origin_city]
     @route_request.origin_place = params[:origin_formatted_address]
-    @route_request.origin_google_id = params[:google_id_origin] # Field not updating!!!
+    @route_request.origin_google_id = params[:google_id_origin]
+    @route_request.origin_departure_date = params[:origin_departure_date]
     @route_request.destination_query = params[:destination_query]
     @route_request.destination_city = params[:destination_city]
     @route_request.destination_place = params[:destination_formatted_address]
@@ -107,7 +104,7 @@ class RouteRequestsController < ApplicationController
     @route_request.destination_arrival_date_time = params[:destination_arrival_date_time]
     @route_request.user_id = params[:user_id]
     @route_request.origin_google_suggested_departure_time = params[:origin_google_suggested_departure_time]
-
+    @route_request.destination_arrival_time_interval = params[:destination_arrival_time_interval]
     @route_request.save
 
     save_status = @route_request.save

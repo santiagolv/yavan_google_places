@@ -11,7 +11,8 @@
 
       <div class="col-md-5">
         <p>Destination Requested:<%= @destination_formatted_address%></p>
-        <p>Estimated Arrival Time: <%=@date_time_arrival_formatted%> </p>
+        <p>Estimated Arrival Time: <%= @date_time_arrival_formatted%>
+        </p>
         <div id="destination_map" style="width: 360px; height: 360px;"></div>
       </div>
 
@@ -22,50 +23,74 @@
         <h4> Expected Travel Time: <%=@duration_in_traffic[1]%> (Pessimistic: <%=@duration_in_traffic[3]%>) </h4>
       </div>
     </div>
-
-
-
-
     <div class="row">
-      <div class="col-md-offset-1 col-md-6">
-        <div id="directions" style='width: 800px; height: 400px; margin: 2%'></div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-offset-1 col-md-6">
-          <form action="/create_route_request">
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+      <div class="alert alert-info" role="alert">
+        <h4> You will be pooled with people that will arrive <strong><% if @date_time_arrival_formatted.to_s(:time)<"09:00"%>
+          <%=@destination_arrival_time_interval="before 09:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"11:00"%>
+          <%=@destination_arrival_time_interval="between 09:00 - 11:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"13:00"%>
+          <%=@destination_arrival_time_interval="between 11:00 - 13:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"15:00"%>
+          <%=@destination_arrival_time_interval="between 13:00 - 15:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"17:00"%>
+          <%=@destination_arrival_time_interval="between 15:00 - 17:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"19:00"%>
+          <%=@destination_arrival_time_interval="between 17:00 - 19:00 Hrs"%>
+          <% elsif @date_time_arrival_formatted.to_s(:time)<"21:00"%>
+          <%=@destination_arrival_time_interval="between 19:00 - 21:00 Hrs"%>
+          <% else %>
+          <%=@destination_arrival_time_interval="after 21:00 Hrs"%>
+          <%end%> </strong> </h4>
         </div>
-        <div class="row">
-          <!-- Origin Parameters -->
-          <div class="form-group">
-            <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
-            <input type="hidden" id="origin_query" name="origin_query" placeholder="Origin Query" class="form-control" value="<%=@origin_request%>">
-            <input type="hidden" id="origin_city" name="origin_city" placeholder="Origin City" class="form-control" value="<%=@origin_city.to_s%>">
-            <input type="hidden" id="origin_formatted_address" name="origin_formatted_address" placeholder="Origin Place" class="form-control" value="<%=@origin_formatted_address.to_s%>">
-            <input type="hidden" id="google_id_origin" name="google_id_origin" placeholder="Origin Google ID" class="form-control" value="<%=@google_id_origin.to_s%>">
-            <input type="hidden" id="origin_google_suggested_departure_time" name="origin_google_suggested_departure_time" placeholder="Departur Time" class="form-control" value="<%=DateTime.parse(@date_time_departure).to_s%>">
-            <!-- Destination Parameters -->
-            <input type="hidden" id="destination_query" name="destination_query" placeholder="Destination Query" class="form-control" value="<%=@destination_request%>">
-            <input type="hidden" id="destination_city" name="destination_city" placeholder="Destination City" class="form-control" value="<%=@destination_city.to_s%>">
-            <input type="hidden" id="destination_formatted_address" name="destination_formatted_address" placeholder="Destination Place" class="form-control" value="<%=@destination_formatted_address.to_s%>">
-            <input type="hidden" id="google_id_destination" name="google_id_destination" placeholder="Destination Google ID" class="form-control" value="<%=@google_id_destination.to_s%>">
-            <input type="hidden" id="destination_arrival_date_time" name="destination_arrival_date_time" placeholder="Destination Arrival Date Time" class="form-control" value="<%=@date_time_arrival_formatted.to_s%>">
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-6">
+          <div id="directions" style='width: 800px; height: 400px; margin: 2%'></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-6">
+          <form action="/create_route_request">
+            <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
           </div>
-          <button class="btn btn-primary btn-lg btn-block">
-            Create Route
+          <div class="row">
+            <!-- Origin Parameters -->
+            <div class="form-group">
+              <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+              <input type="hidden" id="origin_query" name="origin_query" placeholder="Origin Query" class="form-control" value="<%=@origin_request%>">
+              <input type="hidden" id="origin_city" name="origin_city" placeholder="Origin City" class="form-control" value="<%=@origin_city.to_s%>">
+              <input type="hidden" id="origin_formatted_address" name="origin_formatted_address" placeholder="Origin Place" class="form-control" value="<%=@origin_formatted_address.to_s%>">
+              <input type="hidden" id="google_id_origin" name="google_id_origin" placeholder="Origin Google ID" class="form-control" value="<%=@google_id_origin.to_s%>">
+              <input type="hidden" id="origin_google_suggested_departure_time" name="origin_google_suggested_departure_time" placeholder="Departure Time" class="form-control" value="<%=DateTime.parse(@date_time_departure).to_s%>">
+              <input type="hidden" id="origin_departure_date" name="origin_departure_date" placeholder="Departure Date" class="form-control" value="<%=DateTime.parse(@date_time_departure).to_date.to_s%>">
+
+              <!-- Destination Parameters -->
+              <input type="hidden" id="destination_query" name="destination_query" placeholder="Destination Query" class="form-control" value="<%=@destination_request%>">
+              <input type="hidden" id="destination_city" name="destination_city" placeholder="Destination City" class="form-control" value="<%=@destination_city.to_s%>">
+              <input type="hidden" id="destination_formatted_address" name="destination_formatted_address" placeholder="Destination Place" class="form-control" value="<%=@destination_formatted_address.to_s%>">
+              <input type="hidden" id="google_id_destination" name="google_id_destination" placeholder="Destination Google ID" class="form-control" value="<%=@google_id_destination.to_s%>">
+              <input type="hidden" id="destination_arrival_date_time" name="destination_arrival_date_time" placeholder="Destination Arrival Date Time" class="form-control" value="<%=@date_time_arrival_formatted.to_s%>">
+              <input type="hidden" id="destination_arrival_time_interval" name="destination_arrival_time_interval" placeholder="Destination Arrival Time Interval" class="form-control" value="<%=@destination_arrival_time_interval%>">
+            </div>
+            <button class="btn btn-primary btn-lg btn-block">
+              Create Route
+            </button>
+          </form>
+          <button class="btn btn-default btn-lg btn-block btn-warning">
+            <a href="/route_requests/new">
+              Back
+            </a>
           </button>
-        </form>
-        <button class="btn btn-default btn-lg btn-block btn-warning">
-          <a href="/route_requests/new">
-            Back
-          </a>
-        </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 </body>

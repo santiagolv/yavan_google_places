@@ -8,7 +8,16 @@
   <div class="col-md-12">
     <% @route_requests = RouteRequest.all %>
   </p>
-  <% @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :origin_google_id, :origin_google_id).distinct.count(:user_id)%>
+
+
+
+
+
+
+
+
+
+  <%= @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:destination_arrival_time_interval, :origin_place,:destination_place, :origin_google_id, :origin_google_id).distinct.count(:user_id)%>
 
     <% @poolings_ids = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :origin_google_id, :origin_google_id, :user_id).select("user_id").distinct.count(:user_id)%>
     <% @poolings_ids2 = RouteRequest.select(:user_id).order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :origin_google_id, :origin_google_id, :user_id).all.index_by(&:user_id)%>
