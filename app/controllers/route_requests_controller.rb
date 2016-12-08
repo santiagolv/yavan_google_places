@@ -19,9 +19,11 @@ class RouteRequestsController < ApplicationController
   end
 
   def index
-    @q = RouteRequest.ransack(params[:q])
-    @route_requests = @q.result(:distinct => true).includes(:user, :route_pooling).page(params[:page]).per(10)
-
+    @route_requests =RouteRequest.all
+    @route_requests.each do |route_request|
+    route_request.origin_departure_date = route_request.origin_google_suggested_departure_time.to_date.to_s
+    route_request.save
+  end
     render("route_requests/index.html.erb")
   end
 
