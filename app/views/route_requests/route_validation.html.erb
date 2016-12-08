@@ -3,29 +3,8 @@
 <body>
   <div class="conainer">
     <div class="row">
-      <div class="col-md-offset-1 col-md-5">
-        <p>Origin Requested: <%= @origin_formatted_address%></p>
-        <p>Departure Time Requested: <%= DateTime.parse(@date_time_departure)%></p>
-        <div id="origin_map" style="width: 360px; height: 360px;"></div>
-      </div>
-
-      <div class="col-md-5">
-        <p>Destination Requested:<%= @destination_formatted_address%></p>
-        <p>Estimated Arrival Time: <%= @date_time_arrival_formatted%>
-        </p>
-        <div id="destination_map" style="width: 360px; height: 360px;"></div>
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-md-offset-1 col-md-8">
-        <h4> Expected Travel Time: <%=@duration_in_traffic[1]%> (Pessimistic: <%=@duration_in_traffic[3]%>) </h4>
-      </div>
-    </div>
-    <div class="row">
       <div class="alert alert-info" role="alert">
-        <h4> You will be pooled with people that will arrive <strong><% if @date_time_arrival_formatted.to_s(:time)<"09:00"%>
+        <h4> <strong> You will be pooled with people that will arrive <% if @date_time_arrival_formatted.to_s(:time)<"09:00"%>
           <%=@destination_arrival_time_interval="before 09:00 Hrs"%>
           <% elsif @date_time_arrival_formatted.to_s(:time)<"11:00"%>
           <%=@destination_arrival_time_interval="between 09:00 - 11:00 Hrs"%>
@@ -41,19 +20,35 @@
           <%=@destination_arrival_time_interval="between 19:00 - 21:00 Hrs"%>
           <% else %>
           <%=@destination_arrival_time_interval="after 21:00 Hrs"%>
-          <%end%> </strong> </h4>
+          <%end%> </strong> <a href="/route_requests/new" class="alert-link">or Cancel and Search Again</a> </h4>
+          <p> Expected Travel Time: <%=@duration_in_traffic[1]%> (Pessimistic: <%=@duration_in_traffic[3]%>)   </p>
+
         </div>
       </div>
-
-
-
-
       <div class="row">
-        <div class="col-md-offset-1 col-md-6">
-          <div id="directions" style='width: 800px; height: 400px; margin: 2%'></div>
+        <div class="panel panel-default col-md-offset-1 col-md-5">
+          <div class="panel-heading">
+            <h3> <strong> Origin: </strong></h3>
+            <div id="origin_map" style="width: 360px; height: 360px;"></div>
+          </div>
+          <div class="panel-body">
+            <p>Origin Requested: <%= @origin_formatted_address%></p>
+            <p>Departure Time Requested: <%= DateTime.parse(@date_time_departure).to_s(:time)%> Hrs.</p>
+          </div>
         </div>
-      </div>
 
+        <div class="panel panel-default col-md-5">
+          <div class="panel-heading">
+            <h3> <strong> Destination: </strong></h3>
+            <div id="destination_map" style="width: 360px; height: 360px;"></div>
+          </div>
+          <div class="panel-body">
+            <p>Destination Requested: <%= @destination_formatted_address%></p>
+            <p>Estimated Arrival Time: <%= @date_time_arrival_formatted.to_s(:time)%> Hrs.</p>
+          </div>
+        </div>
+
+      </div>
       <div class="row">
         <div class="col-md-offset-1 col-md-6">
           <form action="/create_route_request">
@@ -79,16 +74,20 @@
               <input type="hidden" id="destination_arrival_time_interval" name="destination_arrival_time_interval" placeholder="Destination Arrival Time Interval" class="form-control" value="<%=@destination_arrival_time_interval%>">
             </div>
             <button class="btn btn-primary btn-lg btn-block">
-              Create Route
+              Confirm Route Request
             </button>
           </form>
-          <button class="btn btn-default btn-lg btn-block btn-warning">
-            <a href="/route_requests/new">
-              Back
-            </a>
-          </button>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-6">
+          <h3> <strong> Route Directions: </strong></h3>
+          <div id="directions" style='width: 800px; height: 400px; margin: 2%'></div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 

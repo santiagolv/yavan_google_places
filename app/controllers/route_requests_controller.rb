@@ -108,19 +108,8 @@ class RouteRequestsController < ApplicationController
     @route_request.save
 
     save_status = @route_request.save
-    render("/route_requests/index.html.erb")
-    #if save_status == true
-    #  referer = URI(request.referer).path
 
-    #  case referer
-    #  when "/route_requests/new", "/create_route_request","create_origin_request"
-    #    redirect_to("/route_requests", :notice => "Route request created successfully.")
-    #  else
-    #    redirect_back(:fallback_location => "/", :notice => "Route request created successfully.")
-    #  end
-    #else
-    #  render("route_requests/new.html.erb")
-    #end
+    redirect_to("/poolings", :notice => "Route request added.")
   end
 
   def edit

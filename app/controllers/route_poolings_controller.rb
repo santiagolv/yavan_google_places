@@ -2,7 +2,7 @@ class RoutePoolingsController < ApplicationController
   def index
     @q = RoutePooling.ransack(params[:q])
     @route_poolings = @q.result(:distinct => true).includes(:route_request, :confirmed_passengers).page(params[:page]).per(10)
-
+    @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)","TIME(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :destination_arrival_time_interval, :origin_google_id, :origin_google_id).distinct.count(:user_id)
     render("route_poolings/index.html.erb")
   end
 
@@ -13,7 +13,7 @@ class RoutePoolingsController < ApplicationController
     render("route_poolings/show.html.erb")
   end
   def view
-  
+  @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)","TIME(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :destination_arrival_time_interval, :origin_google_id, :origin_google_id).distinct.count(:user_id)
     render("route_poolings/poolings.html.erb")
   end
 
