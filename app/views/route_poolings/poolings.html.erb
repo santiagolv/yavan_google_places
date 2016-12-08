@@ -7,43 +7,36 @@
 <div class="row">
   <div class="col-md-12">
     <% @route_requests = RouteRequest.all %>
-  </p>
 
-
-
-
-
-
-
-
-
-  <%= @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:destination_arrival_time_interval, :origin_place,:destination_place, :origin_google_id, :origin_google_id).distinct.count(:user_id)%>
+    <% @poolings = RouteRequest.order("DATE(origin_google_suggested_departure_time)","TIME(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :destination_arrival_time_interval, :origin_google_id, :origin_google_id).distinct.count(:user_id)%>
 
     <% @poolings_ids = RouteRequest.order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :origin_google_id, :origin_google_id, :user_id).select("user_id").distinct.count(:user_id)%>
     <% @poolings_ids2 = RouteRequest.select(:user_id).order("DATE(origin_google_suggested_departure_time)").group("DATE(origin_google_suggested_departure_time)",:origin_place,:destination_place, :origin_google_id, :origin_google_id, :user_id).all.index_by(&:user_id)%>
 
-      <table class="table table-striped table-hover">
-        <tr>
-          <th>Date</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th>Passengers IDs</th>
-          <th>Passengers pooled</th>
-          <th>Route confirmed</th>
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Date</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Destination Arrival Time</th>
+        <th>Passengers IDs</th>
+        <th>Passengers pooled</th>
+        <th>Route confirmed</th>
 
-        </tr>
-        <% @poolings.each do |route_pooling| %>
-        <tr>
-          <td><%= route_pooling[0][0] %></td>
-          <td><%= route_pooling[0][1] %></td>
-          <td><%= route_pooling[0][2] %></td>
-          <td><%= route_pooling[2] = RouteRequest.where(origin_place: route_pooling[0][1], destination_place: route_pooling[0][2], origin_departure_date: route_pooling[0][0]).pluck(:user_id)%></td>
-          <td><%= route_pooling[1] %></td>
-          <td><%= route_pooling[3] %></td> <!-- Logic Pending -->
-          <% end %>
+      </tr>
+      <% @poolings.each do |route_pooling| %>
+      <tr>
+        <td><%= route_pooling[0][0] %></td>
+        <td><%= route_pooling[0][1] %></td>
+        <td><%= route_pooling[0][2] %></td>
+        <td><%= route_pooling[0][3] %></td>
+        <td><%= route_pooling[2] = RouteRequest.where(origin_place: route_pooling[0][1], destination_place: route_pooling[0][2], origin_departure_date: route_pooling[0][0], destination_arrival_time_interval: route_pooling[0][3]).pluck(:user_id)%></td>
+        <td><%= route_pooling[1] %></td>
+        <td><%= route_pooling[3] %></td> <!-- Logic Pending -->
+        <% end %>
 
 
-          </table>
+      </table>
 
-        </div>
-      </div>
+    </div>
+  </div>
