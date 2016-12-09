@@ -25,8 +25,11 @@ Rails.application.routes.draw do
   get "/route_poolings/new", :controller => "route_poolings", :action => "new"
   post "/create_route_pooling", :controller => "route_poolings", :action => "create"
   get "/poolings", :controller => "route_poolings", :action => "view"
+  get "/my_poolings", :controller => "route_poolings", :action => "view_own"
+
   # READ
   get "/route_poolings", :controller => "route_poolings", :action => "index"
+  get "/my_route_poolings", :controller => "route_poolings", :action => "my_index"
   get "/route_poolings/:id", :controller => "route_poolings", :action => "show"
 
   # UPDATE
